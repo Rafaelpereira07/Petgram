@@ -18,7 +18,7 @@ const FeedData = [
     name: "Guacho",
     age: "1",
     weight: "2",
-    uploader: "Rafael",
+    uploader: "admin",
     comments: [
       { author: "Clóvis", text: "Muito fofo!" },
       { author: "Claudio", text: "Da um baita churrasco!" },

@@ -19,15 +19,15 @@ function Cadastro() {
             <form className="mb-8">
               <div>
                 <label className="block font-sans font-medium text-[18px] text-p5 mb-3">Nome</label>
-                <input className="w-91.5 rounded px-4 py-6 bg-linear-to-r from-c1 to-c1 mb-7" type="text" />
+                <input className="w-91.5 rounded px-4 py-6 bg-linear-to-r from-c1 to-c1 mb-7" type="text" placeholder="Nome"/>
               </div>
               <div>
                 <label className="block font-sans font-medium text-[18px] text-p5 mb-3">Usuário</label>
-                <input className="w-91.5 rounded px-4 py-6 bg-linear-to-r from-c1 to-c1 mb-7" type="text" />
+                <input className="w-91.5 rounded px-4 py-6 bg-linear-to-r from-c1 to-c1 mb-7" type="text" placeholder="Usuário" />
               </div>
               <div>
                 <label className="block font-sans font-medium text-[18px] text-p5 mb-3">Senha</label>
-                <input className="w-91.5 rounded px-4 py-6 bg-linear-to-r from-c1 to-c1 mb-7" type="password" />
+                <input className="w-91.5 rounded px-4 py-6 bg-linear-to-r from-c1 to-c1 mb-7" type="password" placeholder="Senha" />
               </div>
               <button
                 className="w-50 mt-10 bg-linear-to-b from-p1 to-p2 rounded shadow px-6 py-4.5 text-p5 font-sans font-semibold text-[18px] text-center inline-block transition hover:brightness-95 "
