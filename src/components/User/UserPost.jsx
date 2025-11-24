@@ -6,6 +6,7 @@ export default function UserPost() {
   const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [form, setForm] = useState({
     nome: "",
     idade: "",
@@ -13,6 +14,7 @@ export default function UserPost() {
   });
 
   const navigate = useNavigate();
+  
   useEffect(() => {
     const raw = localStorage.getItem("petgram_user");
     if (!raw) {
@@ -50,95 +52,192 @@ export default function UserPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Lógica de submit aqui
   };
 
   if (!user) return null;
 
   return (
-    <div className="relative w-[1440px] h-[1024px] bg-white mx-auto overflow-hidden">
-      <div className="absolute left-[396px] top-40">
-        <span className="font-['PT_Serif'] font-bold text-5xl text-p5">Postar Foto</span>
-      </div>
-      <div className="absolute left-[868px] top-[170px] flex flex-row gap-4">
-        <div className="w-11 h-11 bg-white rounded-md border flex justify-center items-center " onClick={() => navigate("/user/fotos")}>
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="#151B29" strokeWidth="2" fill="none" />
-          </svg>
-        </div>
-        <div
-          className="w-11 h-11 bg-white rounded-md border border-p2 shadow-[0_0_2px_1px_#2E8EFF] flex justify-center items-center"
-          title="Minhas Fotos"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <line x1="12" y1="6" x2="12" y2="18" stroke="#000" strokeWidth="2" />
-            <line x1="6" y1="12" x2="18" y2="12" stroke="#000" strokeWidth="2" />
-          </svg>
-        </div>
-        <div className="w-11 h-11 bg-white rounded-md border border-p5 flex justify-center items-center">
-          <button onClick={handleLogout} aria-label="Sair" className="w-full h-full flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <line x1="6" y1="6" x2="18" y2="18" stroke="#000" strokeWidth="2" />
-              <line x1="18" y1="6" x2="6" y2="18" stroke="#000" strokeWidth="2" />
-            </svg>
-          </button>
-        </div>
-      </div>
+    <main className="flex flex-col min-h-screen bg-white">
+      <div className="flex-1 flex flex-col items-center pt-20 md:pt-40 pb-8 px-4">
+        <div className="w-full max-w-6xl">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="font-['PT_Serif'] font-bold text-3xl md:text-5xl text-p5">
+              Postar Foto
+            </h1>
 
-      <div className="absolute left-[396px] top-64 flex flex-row gap-12 items-start">
-        <form className="flex flex-col gap-10.5" style={{width: 365}} onSubmit={handleSubmit}>
-          <input
-            className="rounded-md bg-[#d9d9d9] p-4 font-sans"
-            type="text"
-            placeholder="Nome"
-            name="nome"
-            value={form.nome}
-            onChange={handleChange}
-          />
-          <input
-            className="rounded-md bg-[#d9d9d9] p-4 font-sans"
-            type="text"
-            placeholder="Idade"
-            name="idade"
-            value={form.idade}
-            onChange={handleChange}
-          />
-          <input
-            className="rounded-md bg-[#d9d9d9] p-4 font-sans"
-            type="text"
-            placeholder="Peso"
-            name="peso"
-            value={form.peso}
-            onChange={handleChange}
-          />
-          <div className="flex items-center">
-            <label className="cursor-pointer">
-              <span className="bg-white border border-c4 rounded px-2 py-1 mr-2">
-                Escolher Arquivo
-              </span>
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleFileChange}
-              />
-            </label>
-            <span className="ml-2">{photo ? photo.name : ''}</span>
+            {/* Menu Desktop */}
+            <div className="hidden md:flex flex-row gap-4">
+              <button 
+                className="w-11 h-11 bg-white rounded-md border border-p5 flex justify-center items-center cursor-pointer"
+                onClick={() => navigate("/user/fotos")}
+                title="Minhas Fotos"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="#151B29" strokeWidth="2" fill="none" />
+                </svg>
+              </button>
+
+              <button
+                className="w-11 h-11 bg-white rounded-md border border-p2 shadow-[0_0_2px_1px_#2E8EFF] flex justify-center items-center"
+                title="Postar Foto"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <line x1="12" y1="6" x2="12" y2="18" stroke="#000" strokeWidth="2" />
+                  <line x1="6" y1="12" x2="18" y2="12" stroke="#000" strokeWidth="2" />
+                </svg>
+              </button>
+
+              <button 
+                className="w-11 h-11 bg-white rounded-md border border-p5 flex justify-center items-center"
+                onClick={handleLogout}
+                aria-label="Sair"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <line x1="6" y1="6" x2="18" y2="18" stroke="#000" strokeWidth="2" />
+                  <line x1="18" y1="6" x2="6" y2="18" stroke="#000" strokeWidth="2" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Menu Mobile */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="w-11 h-11 bg-white rounded-md border border-p5 flex flex-col justify-center items-center gap-1.5"
+              >
+                <div className="w-6 h-0.5 bg-black"></div>
+                <div className="w-6 h-0.5 bg-black"></div>
+                <div className="w-6 h-0.5 bg-black"></div>
+              </button>
+
+              {/* Menu Dropdown */}
+              {isMenuOpen && (
+                <div className="absolute right-4 mt-3 w-48 bg-white rounded-md shadow-lg border border-p5 z-10">
+                  <div className="flex flex-col p-2 gap-2">
+                    <button 
+                      className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-md"
+                      onClick={() => {
+                        navigate("/user/fotos");
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      <div className="w-8 h-8 border border-p5 rounded flex justify-center items-center">
+                        <svg width="16" height="16" viewBox="0 0 24 24">
+                          <circle cx="12" cy="12" r="10" stroke="#151B29" strokeWidth="2" fill="none" />
+                        </svg>
+                      </div>
+                      <span>Minhas Fotos</span>
+                    </button>
+
+                    <button
+                      className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-md bg-gray-50"
+                    >
+                      <div className="w-8 h-8 border border-p2 shadow-[0_0_2px_1px_#2E8EFF] rounded flex justify-center items-center">
+                        <svg width="16" height="16" viewBox="0 0 24 24">
+                          <line x1="12" y1="6" x2="12" y2="18" stroke="#000" strokeWidth="2" />
+                          <line x1="6" y1="12" x2="18" y2="12" stroke="#000" strokeWidth="2" />
+                        </svg>
+                      </div>
+                      <span>Postar Foto</span>
+                    </button>
+
+                    <button 
+                      className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-md"
+                      onClick={() => {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      <div className="w-8 h-8 border border-p5 rounded flex justify-center items-center">
+                        <svg width="16" height="16" viewBox="0 0 24 24">
+                          <line x1="6" y1="6" x2="18" y2="18" stroke="#000" strokeWidth="2" />
+                          <line x1="18" y1="6" x2="6" y2="18" stroke="#000" strokeWidth="2" />
+                        </svg>
+                      </div>
+                      <span>Sair</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-          <button
-            type="submit"
-            className="w-34 bg-linear-to-b from-p1 to-p2 text-[18px] rounded shadow px-6 py-4.5 text-p5 font-sans font-bold text-lg transition hover:brightness-95"
-          >
-            Enviar
-          </button>
-        </form>
-        <div className="w-[263px] h-[263px] rounded-md bg-[#d9d9d9] overflow-hidden flex items-center justify-center shadow">
-          {preview ? (
-            <img src={preview} alt="Preview" className="w-full h-full object-cover" />
-          ) : (
-            <span className="text-gray-400 p-4">Nenhuma imagem selecionada</span>
-          )}
+
+          {/* Formulário e Preview */}
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start justify-center">
+            {/* Formulário */}
+            <form 
+              className="flex flex-col gap-6 w-full max-w-md" 
+              onSubmit={handleSubmit}
+            >
+              <input
+                className="rounded-md bg-gray-100 p-4 font-sans w-full focus:outline-none focus:ring-2 focus:ring-p2"
+                type="text"
+                placeholder="Nome"
+                name="nome"
+                value={form.nome}
+                onChange={handleChange}
+              />
+              <input
+                className="rounded-md bg-gray-100 p-4 font-sans w-full focus:outline-none focus:ring-2 focus:ring-p2"
+                type="text"
+                placeholder="Idade"
+                name="idade"
+                value={form.idade}
+                onChange={handleChange}
+              />
+              <input
+                className="rounded-md bg-gray-100 p-4 font-sans w-full focus:outline-none focus:ring-2 focus:ring-p2"
+                type="text"
+                placeholder="Peso"
+                name="peso"
+                value={form.peso}
+                onChange={handleChange}
+              />
+              
+              <div className="flex flex-col gap-4">
+                <label className="cursor-pointer flex items-center gap-3">
+                  <span className="bg-white border border-gray-400 rounded px-4 py-2 text-sm hover:bg-gray-50 transition-colors">
+                    Escolher Arquivo
+                  </span>
+                  <span className="text-gray-600 truncate flex-1">
+                    {photo ? photo.name : 'Nenhum arquivo selecionado'}
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                </label>
+              </div>
+              
+              <button
+                type="submit"
+                className="w-full  from-p1 to-p2 text-white rounded-lg shadow px-6 py-4 text-lg font-sans font-bold transition-all hover:brightness-95 hover:shadow-lg active:scale-95"
+              >
+                Enviar
+              </button>
+            </form>
+
+            {/* Preview - APENAS NO DESKTOP */}
+            <div className=" md:block w-full max-w-md md:max-w-xs lg:max-w-sm aspect-square rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center shadow-lg">
+              {preview ? (
+                <img 
+                  src={preview} 
+                  alt="Preview" 
+                  className="w-full h-full object-cover" 
+                />
+              ) : (
+                <span className="text-gray-400 text-center p-4">
+                  Nenhuma imagem selecionada
+                </span>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

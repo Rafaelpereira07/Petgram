@@ -84,7 +84,6 @@ function Popup({ data, onClose }) {
     setComments(prev => [...prev, newComment]);
     setCommentText("");
   };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* fundo escuro */}
@@ -174,3 +173,4 @@ function Fotos() {
 }
 
 export default Fotos;
+
