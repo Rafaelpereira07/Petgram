@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function FeedModal({ data, onClose }) {
@@ -6,6 +6,11 @@ function FeedModal({ data, onClose }) {
   const [comments, setComments] = useState(data?.comments || []);
   const [showComments, setShowComments] = useState(false);
   const navigate = useNavigate();
+
+  // Atualiza lista de comentários sempre que a prop `data` mudar
+  useEffect(() => {
+    setComments(data?.comments || []);
+  }, [data]);
 
   if (!data) return null;
 
@@ -20,8 +25,25 @@ function FeedModal({ data, onClose }) {
   const handleAddComment = () => {
     if (!commentText.trim()) return;
     const newComment = { author: "Você", text: commentText };
-    setComments(prev => [...prev, newComment]);
+    const updated = [...comments, newComment];
+    setComments(updated);
     setCommentText("");
+
+    // Persistir comentários no localStorage (cria ou atualiza a foto correspondente)
+    try {
+      const raw = localStorage.getItem('petgram_fotos');
+      const arr = raw ? JSON.parse(raw) : [];
+      const idx = arr.findIndex(f => f.id === data.id);
+      if (idx !== -1) {
+        arr[idx] = { ...arr[idx], comments: updated };
+      } else {
+        // criar uma entrada baseada na foto atual (src já está resolvido pelo FeedData)
+        arr.unshift({ ...data, comments: updated });
+      }
+      localStorage.setItem('petgram_fotos', JSON.stringify(arr));
+    } catch (err) {
+      // falha ao persistir, ignorar silenciosamente
+    }
   };
 
   return (
@@ -55,13 +77,18 @@ function FeedModal({ data, onClose }) {
               {data.age === "1" ? "1 Ano" : `${data.age} Anos`} | {data.weight} Kg
             </span>
           </div>
-          <div className="mt-[50%]">
-            {comments.map((c, i) => (
-              <div className="flex" key={i}>
-                <span className="font-semibold text-sm text-p5 mr-1">{c.author}:</span>
-                <span className="text-sm text-p5">{c.text}</span>
-              </div>
-            ))}
+          {/* Área de comentários (desktop): flex-1 para ocupar espaço entre o topo e o input */}
+          <div className="flex-1 overflow-y-auto pr-1 pt-28">
+            {comments.length === 0 ? (
+              <p className="text-gray-500 text-sm">Nenhum comentário ainda. Seja o primeiro a comentar!</p>
+            ) : (
+              comments.map((c, i) => (
+                <div className="flex mb-2" key={i}>
+                  <span className="font-semibold text-sm text-p5 mr-1">{c.author}:</span>
+                  <span className="text-sm text-p5">{c.text}</span>
+                </div>
+              ))
+            )}
           </div>
           <div className="flex gap-0 mt-auto pb-1">
             <input

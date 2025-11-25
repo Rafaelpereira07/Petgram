@@ -1,0 +1,79 @@
+{
+	"users": [
+		{
+			"id": "f5125399-c595-4340-ac90-57ecae22ef7e",
+			"username": "Bueno",
+			"email": "bueno@email.com",
+			"password": "$2b$08$9ZNUuLgq5XBlxohpDhxAu.pedVm4y84.KpoKPcHwrrqzXzH3j3n7S"
+		},
+		{
+			"id": "34498eda-1e4d-4074-b93c-26756a3e4b59",
+			"username": "Rafael",
+			"email": "rafael",
+			"password": "$2b$08$JjNN2sn3aQzxgFoPMJrwLOAyhzWrfeUbE/w44bWvqWKR7FJ4vOrc6"
+		}
+	],
+	"fotos": [
+		{
+			"id": "1",
+			"src": "../../../assets/fotos/Img10.png",
+			"name": "Guacho",
+			"age": "1",
+			"weight": "2",
+			"uploader": "Rafael",
+			"comments":[
+				{ "author": "Clóvis", "text": "Muito fofo!" },
+				{ "author": "Claudio", "text": "Da um baita churrasco!" }
+			]
+		},
+		{
+			"id": "2",
+			"src": "../../../assets/fotos/Img2.png",
+			"name": "Agatha",
+			"age": "3",
+			"weight": "2",
+			"uploader": "Rafael",
+			"comments":[
+				{ "author": "Clóvis", "text": "Muito Viva ela!" },
+				{ "author": "Claudio", "text": "Claro!, é uma Água-Viva" }
+			]
+		},
+		{
+			"id": "3",
+			"src": "../../../assets/fotos/Img5.png",
+			"name": "Green",
+			"age": "6",
+			"weight": "2",
+			"uploader": "Rafael",
+			"comments":[
+				{ "author": "Clóvis", "text": "São 3!" },
+				{ "author": "Claudio", "text": "Nunca vi uma assim" }
+			]
+		},
+		{
+			"id": "4",
+			"src": "../../../assets/fotos/Img7.png",
+			"name": "Coatá",
+			"age": "2",
+			"weight": "2",
+			"uploader": "Rafael",
+			"comments":[
+				{ "author": "Clóvis", "text": "Muito fofo!" },
+				{ "author": "Claudio", "text": "Só sabe comentar isso Clóvis?" }
+			]
+		},
+		{
+			"id": "5",
+			"src": "../../../assets/fotos/Img3.png",
+			"name": "Tobby",
+			"age": "1",
+			"weight": "2",
+			"uploader": "Rafael",
+			"comments":[
+				{ "author": "Clóvis", "text": "Muito fofo!" },
+				{ "author": "Claudio", "text": "Bem Vermelho!" }
+			]
+		}
+
+	]
+}

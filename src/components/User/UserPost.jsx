@@ -52,7 +52,35 @@ export default function UserPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica de submit aqui
+    // validação básica
+    if (!form.nome.trim() || !form.idade.trim() || !form.peso.trim() || !preview) {
+      alert("Preencha todos os campos e escolha uma imagem.");
+      return;
+    }
+
+    // criar novo objeto de foto (src = data URL do preview)
+    const newFoto = {
+      id: Date.now().toString(),
+      src: preview,
+      name: form.nome,
+      age: form.idade,
+      weight: form.peso,
+      uploader: user?.username || "Você",
+      comments: []
+    };
+
+    const saved = JSON.parse(localStorage.getItem("petgram_fotos") || "[]");
+    // coloca no começo para aparecer primeiro
+    saved.unshift(newFoto);
+    localStorage.setItem("petgram_fotos", JSON.stringify(saved));
+
+    // resetar form e preview
+    setForm({ nome: "", idade: "", peso: "" });
+    setPhoto(null);
+    setPreview(null);
+
+    // ir para a home para ver a foto publicada
+    navigate("/");
   };
 
   if (!user) return null;
